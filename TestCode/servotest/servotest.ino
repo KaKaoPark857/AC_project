@@ -1,3 +1,4 @@
+//서보테스트 성공
 //오랜지색 pwm / 빨간색 vcc(5v) / 갈색 ground
 #include <Servo.h>
 #include <AFMotor.h>
