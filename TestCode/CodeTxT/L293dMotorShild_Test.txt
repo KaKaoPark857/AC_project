@@ -1,0 +1,245 @@
+#include <Servo.h> //서보모터 라이브러리
+#include <AFMotor.h> //L293D 모터드라이브 라이브러리 (따로 추가함)
+
+//테스트 결과 : 서보모터 작동, led 아날로그핀 작동(납땜확인)
+
+AF_DCMotor motor1(1);
+AF_DCMotor motor2(3);
+
+Servo lock_device1;
+Servo lock_device2;
+
+int value1 = 0;
+int value2 = 0;
+
+void setup(){
+  Serial.begin(9600); //시리얼 통신 설정
+
+  //모터슬라이더 속도 설정
+  motor1.setSpeed(200);
+  motor2.setSpeed(200);
+  motor1.run(RELEASE);
+  motor2.run(RELEASE);
+  //서보모터 핀모드 OUTPUT으로 설정
+  lock_device1.attach(8);  // 1번 서보모터
+  lock_device2.attach(9);  // 2번 서보모터
+
+  //LED 제어 핀모드 OUTPUT으로 설정
+  //아날로그 핀 0~2 LED 1번
+  //1번 서랍 LED
+  pinMode(A0, OUTPUT); //LED 빨강
+  pinMode(A2, OUTPUT); //LED 초록
+  pinMode(A1, OUTPUT); //LED 노랑
+  //아날로그 핀 3~5 LED 2번
+  //2번 서랍 LED
+  pinMode(A3, OUTPUT); //LED 빨강
+  pinMode(A5, OUTPUT); //LED 초록
+  pinMode(A4, OUTPUT); //LED 노랑
+}
+
+//1번 LED 점등 제어
+void OFF1() {
+  Serial.println("ALL LED OFF"); //초기 LED 값
+  digitalWrite(A0, LOW);
+  digitalWrite(A2, LOW);
+  digitalWrite(A1, LOW);
+}
+
+void RED_ON1(){
+  Serial.println("RED ON"); //서랍 잠금 상태(닫힘)
+  digitalWrite(A0, HIGH);
+  digitalWrite(A2, LOW);
+  digitalWrite(A1, LOW);
+}
+
+void GRE_ON1(){
+  Serial.println("GREEN ON"); // 서랍 열림 상태
+  digitalWrite(A0, LOW);
+  digitalWrite(A2, HIGH);
+  digitalWrite(A1, LOW);
+}
+void YEL_ON1(){
+  Serial.println("YELLOW ON"); //서랍 닫힘 상태
+  digitalWrite(A0, LOW);
+  digitalWrite(A2, LOW);
+  digitalWrite(A1, HIGH);
+}
+//1번 LED 점등 제어 끝
+
+//2번 LED 점등 제어
+void OFF2() {
+  Serial.println("ALL LED OFF"); //초기 LED 값
+  digitalWrite(A3, LOW);
+  digitalWrite(A5, LOW);
+  digitalWrite(A4, LOW);
+}
+
+void RED_ON2(){
+  Serial.println("RED ON"); //서랍 잠금 상태(닫힘)
+  digitalWrite(A3, HIGH);
+  digitalWrite(A5, LOW);
+  digitalWrite(A4, LOW);
+}
+
+void GRE_ON2(){
+  Serial.println("GREEN ON"); // 서랍 열림 상태
+  digitalWrite(A3, LOW);
+  digitalWrite(A5, HIGH);
+  digitalWrite(A4, LOW);
+}
+void YEL_ON2(){
+  Serial.println("YELLOW ON"); //서랍 닫힘 상태
+  digitalWrite(A3, LOW);
+  digitalWrite(A5, LOW);
+  digitalWrite(A4, HIGH);
+}
+//2번 LED 점등 제어 끝
+
+//LED 효과에 따른 중복 행동 방지 변수
+int before1 = 000;
+int after1 = 000;
+int before2 = 000;
+int after2 = 000;
+  
+void loop(){
+  if(Serial.available()){
+    char in_data; //라즈베리파이에서 받은 값
+    in_data = Serial.read();
+      
+////////////////////////////////////////////////////////////////////////////////// 1번 서랍 동작
+
+    if(in_data=='1'){ // 1번 닫힘
+      before1=after1;
+      after1=001;
+      if(before1==after1){
+        Serial.print("Number 1 can't do");
+        Serial.print("\t");
+      }
+      else{
+        OFF1(); //1번 LED 모두 끄고
+        YEL_ON1(); //1번 닫힘 노랑
+        motor1.run(BACKWARD); //역방향
+        delay(1000);
+        motor1.run(RELEASE); //모터 정지
+      }
+      Serial.print("Number 1 is Close\n\n");
+   }
+   
+   else if(in_data=='2'){ //1번 열림
+      before1=after1;
+      after1=010;
+      if(before1==after1){       
+        Serial.print("Number 1 can't do");
+        Serial.print("\t");
+      }
+      else{
+        OFF1(); //1번 LED 모두 끄고
+        GRE_ON1();//1번 열림 초록
+        motor1.run(FORWARD); //정방향
+        delay(1000);
+        motor1.run(RELEASE); //모터 정지
+      }
+      Serial.print("Number 1 is Open\n\n");
+   }
+    
+   if(in_data=='5'){ //1번 잠금
+      before1=after1;
+      after1=100;
+      if(before1==after1){
+        Serial.print("Number 1 can't do");
+        Serial.print("\t");
+      }
+      else{
+        OFF1(); //1번 LED 모두 끄고      
+        RED_ON1(); //1번 잠금 빨강
+        value1 -= 30; //오른쪽으로 30도 값
+        lock_device1.write(value1); //잠금 실행
+      }
+      Serial.print("Number 1 is Lock\n\n");
+   }
+   
+   else if(in_data=='6'){ //1번 잠금 해제
+      before1=after1;
+      after1=001;
+      if(before1==after1){
+        Serial.print("Number 1 can't do");
+        Serial.print("\t");
+      }
+      else{
+        OFF1(); //1번 LED 모두 끄고      
+        YEL_ON1(); //1번 닫힘 노랑 (잠금 해제)
+        value1 += 30; //왼쪽으로 30도 값
+        lock_device1.write(value1); //잠금해제 실행
+      }
+      Serial.print("Number 1 is UnLock\n\n");
+    }
+   
+////////////////////////////////////////////////////////////////////////////////// 2번 서랍 동작
+    
+    if(in_data=='3'){ //2번 닫힘
+       before2=after2;
+       after2=001;
+       if(before2==after2){
+         Serial.print("Number 2 can't do");
+         Serial.print("\t");
+       }
+       else{
+        OFF2(); //2번 LED 모두 끄고        
+        YEL_ON2(); //2번 닫힘 노랑
+        motor2.run(BACKWARD); //역방향
+        delay(1000);
+        motor2.run(RELEASE); //모터 정지
+       }
+       Serial.print("Number 2 is Close\n\n");
+    }
+   
+    else if(in_data=='4'){ //2번 열림       
+      before2=after2;
+      after2=010;
+      if(before2==after2){
+        Serial.print("Number 2 can't do");
+        Serial.print("\t");
+      }
+      else{
+        OFF2(); //2번 LED 모두 끄고        
+        GRE_ON2(); //2번 열림 초록 
+        motor2.run(FORWARD); //정방향
+        delay(1000);
+        motor2.run(RELEASE); //모터 정지
+      }
+      Serial.print("Number 2 is Open\n\n"); 
+    }
+
+    if(in_data=='7'){ //2번 잠금
+      before2=after2;
+      after2=100;
+      if(before2==after2){
+        Serial.print("Number 2 can't do");
+        Serial.print("\t");
+      }
+      else{
+        OFF2(); //2번 LED 모두 끄고      
+        RED_ON2(); //2번 잠금 빨강
+        value2 -= 30; //오른쪽으로 30도 값
+        lock_device2.write(value2); //잠금 실행
+      }
+      Serial.print("Number 2 is Lock\n\n");
+    }
+
+    else if(in_data=='8'){ //2번 잠금 해제    
+      before2=after2;
+      after2=001;
+      if(before2==after2){
+        Serial.print("Number 2 can't do");
+        Serial.print("\t");
+      }
+      else{
+        OFF2(); //2번 LED 모두 끄고      
+        YEL_ON2(); //2번 닫힘 노랑 (잠금 해제)
+        value2 += 30; //왼쪽으로 30도 값
+        lock_device2.write(value2); //잠금해제 실행
+      }
+      Serial.print("Number 2 is UnLock\n\n");
+    } 
+  }
+}
