@@ -4,7 +4,7 @@
 //테스트 결과 : 서보모터 작동, led 아날로그핀 작동(납땜확인)
 
 AF_DCMotor motor1(1);
-AF_DCMotor motor2(3);
+AF_DCMotor motor2(4);
 
 Servo lock_device1;
 Servo lock_device2;

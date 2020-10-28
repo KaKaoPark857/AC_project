@@ -19,8 +19,8 @@ void num1_open(){ //1번 서랍 열림
   motor1_1.run(FORWARD);
   motor1_2.run(FORWARD);
   delay(1000);
-  motor1_1.run(RELEASE);
-  motor1_2.run(RELEASE);
+  motor1_1.run(RELEASE); //BREAK 함수: 급정지
+  motor1_2.run(RELEASE); //RELEASE 함수 : 부드럽게 정지(휴식)
 }
 
 void num1_close(){ //1번 서랍 닫힘
