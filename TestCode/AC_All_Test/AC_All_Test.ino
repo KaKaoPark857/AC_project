@@ -51,10 +51,10 @@ void setup(){
   Serial.begin(9600); //시리얼 통신 설정
 
   //모터슬라이더 속도 설정
-  motor1_1.setSpeed(200); //모터 속도 설정
-  motor1_2.setSpeed(200);
-  motor2_1.setSpeed(200);
-  motor2_2.setSpeed(200);
+  motor1_1.setSpeed(250); //모터 속도 설정
+  motor1_2.setSpeed(250);
+  motor2_1.setSpeed(250);
+  motor2_2.setSpeed(250);
 
   //서보모터 핀모드 OUTPUT으로 설정
   lock_device1.attach(8);  // 1번 서보모터
@@ -71,6 +71,27 @@ void setup(){
   pinMode(A3, OUTPUT); //LED 빨강
   pinMode(A5, OUTPUT); //LED 초록
   pinMode(A4, OUTPUT); //LED 노랑
+}
+
+//1번 잠금
+void num1_lock(){
+  value1 -= 30; //오른쪽으로 30도
+  lock_device1.write(value1); //잠금 실행
+}
+//1번 잠금 해제
+void num1_unlock(){
+  value1 += 30; //왼쪽으로 30도 값
+  lock_device1.write(value1); //잠금해제 실행
+}
+//2번 잠금
+void num2_lock(){
+  value2 -= 30; //오른쪽으로 30도 값
+  lock_device2.write(value2); //잠금 실행
+}
+//2번 잠금해제
+void num2_unlock(){
+  value2 += 30; //왼쪽으로 30도 값
+  lock_device2.write(value2); //잠금해제 실행
 }
 
 //1번 LED 점등 제어
@@ -184,8 +205,7 @@ void loop(){
       else{
         OFF1(); //1번 LED 모두 끄고      
         RED_ON1(); //1번 잠금 빨강
-        value1 -= 30; //오른쪽으로 30도 값
-        lock_device1.write(value1); //잠금 실행
+        num1_lock();
       }
       Serial.print("Number 1 is Lock\n\n");
    }
@@ -200,8 +220,7 @@ void loop(){
       else{
         OFF1(); //1번 LED 모두 끄고      
         YEL_ON1(); //1번 닫힘 노랑 (잠금 해제)
-        value1 += 30; //왼쪽으로 30도 값
-        lock_device1.write(value1); //잠금해제 실행
+        num1_unlock();
       }
       Serial.print("Number 1 is UnLock\n\n");
     }
@@ -248,8 +267,7 @@ void loop(){
       else{
         OFF2(); //2번 LED 모두 끄고      
         RED_ON2(); //2번 잠금 빨강
-        value2 -= 30; //오른쪽으로 30도 값
-        lock_device2.write(value2); //잠금 실행
+        num2_lock();
       }
       Serial.print("Number 2 is Lock\n\n");
     }
@@ -264,8 +282,7 @@ void loop(){
       else{
         OFF2(); //2번 LED 모두 끄고      
         YEL_ON2(); //2번 닫힘 노랑 (잠금 해제)
-        value2 += 30; //왼쪽으로 30도 값
-        lock_device2.write(value2); //잠금해제 실행
+        num2_unlock();
       }
       Serial.print("Number 2 is UnLock\n\n");
     } 
