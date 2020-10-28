@@ -95,13 +95,6 @@ void num2_unlock(){
 }
 
 //1번 LED 점등 제어
-void OFF1() {
-  Serial.println("ALL LED OFF"); //초기 LED 값
-  digitalWrite(A0, LOW);
-  digitalWrite(A2, LOW);
-  digitalWrite(A1, LOW);
-}
-
 void RED_ON1(){
   Serial.println("RED ON"); //서랍 잠금 상태(닫힘)
   digitalWrite(A0, HIGH);
@@ -124,13 +117,6 @@ void YEL_ON1(){
 //1번 LED 점등 제어 끝
 
 //2번 LED 점등 제어
-void OFF2() {
-  Serial.println("ALL LED OFF"); //초기 LED 값
-  digitalWrite(A3, LOW);
-  digitalWrite(A5, LOW);
-  digitalWrite(A4, LOW);
-}
-
 void RED_ON2(){
   Serial.println("RED ON"); //서랍 잠금 상태(닫힘)
   digitalWrite(A3, HIGH);
@@ -173,9 +159,8 @@ void loop(){
         Serial.print("\t");
       }
       else{
-        OFF1(); //1번 LED 모두 끄고
         YEL_ON1(); //1번 닫힘 노랑
-        num1_close();
+        num1_close(); //1번 닫힘
       }
       Serial.print("Number 1 is Close\n\n");
    }
@@ -188,9 +173,8 @@ void loop(){
         Serial.print("\t");
       }
       else{
-        OFF1(); //1번 LED 모두 끄고
         GRE_ON1();//1번 열림 초록
-        num1_open();
+        num1_open(); //1번 열림
       }
       Serial.print("Number 1 is Open\n\n");
    }
@@ -203,9 +187,8 @@ void loop(){
         Serial.print("\t");
       }
       else{
-        OFF1(); //1번 LED 모두 끄고      
         RED_ON1(); //1번 잠금 빨강
-        num1_lock();
+        num1_lock(); //1번 잠금
       }
       Serial.print("Number 1 is Lock\n\n");
    }
@@ -218,9 +201,8 @@ void loop(){
         Serial.print("\t");
       }
       else{
-        OFF1(); //1번 LED 모두 끄고      
         YEL_ON1(); //1번 닫힘 노랑 (잠금 해제)
-        num1_unlock();
+        num1_unlock(); //1번 잠금 해제
       }
       Serial.print("Number 1 is UnLock\n\n");
     }
@@ -235,9 +217,8 @@ void loop(){
          Serial.print("\t");
        }
        else{
-        OFF2(); //2번 LED 모두 끄고        
         YEL_ON2(); //2번 닫힘 노랑
-        num2_close();
+        num2_close(); //2번 닫힘
        }
        Serial.print("Number 2 is Close\n\n");
     }
@@ -250,9 +231,8 @@ void loop(){
         Serial.print("\t");
       }
       else{
-        OFF2(); //2번 LED 모두 끄고        
         GRE_ON2(); //2번 열림 초록 
-        num2_open();
+        num2_open(); //2번 열림
       }
       Serial.print("Number 2 is Open\n\n"); 
     }
@@ -265,9 +245,8 @@ void loop(){
         Serial.print("\t");
       }
       else{
-        OFF2(); //2번 LED 모두 끄고      
         RED_ON2(); //2번 잠금 빨강
-        num2_lock();
+        num2_lock(); //2번 잠금
       }
       Serial.print("Number 2 is Lock\n\n");
     }
@@ -280,9 +259,8 @@ void loop(){
         Serial.print("\t");
       }
       else{
-        OFF2(); //2번 LED 모두 끄고      
         YEL_ON2(); //2번 닫힘 노랑 (잠금 해제)
-        num2_unlock();
+        num2_unlock(); //2번 잠금 해제
       }
       Serial.print("Number 2 is UnLock\n\n");
     } 

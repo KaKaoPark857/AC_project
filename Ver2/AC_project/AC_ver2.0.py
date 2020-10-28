@@ -24,7 +24,8 @@ import serial
 ###############################################아두이노 동작 명령 전달
 
 port = "/dev/ttyACM0" #UART 통신
-arduino = serial.Serial(port, 9600) #블루투스 모듈로 연결해야함
+arduino = serial.Serial(port, 9600)
+#블루투스 모듈 연결 코드 작성요망
 
 def close1_AC(): #1번 닫힘
 	m = '1'
@@ -331,7 +332,7 @@ def control_action(text): ##명령어 입력
 			time.sleep(1)
 		elif(state1 == 3):
 			print('1번 서랍은 이미 잠금 상태입니다.') #터미널 창에 출력
-			gt2vt.getText2VoiceStream("1번 서랍은 이미 잠금 상태입니다..아","./number1_cannot_lock.wav")
+			gt2vt.getText2VoiceStream("1번 서랍은 이미 잠금 상태입니다.아","./number1_cannot_lock.wav")
 			gt2vt.play_file("./number1_cannot_lock.wav")
 			time.sleep(1)
 		else:
@@ -407,8 +408,8 @@ def control_action(text): ##명령어 입력
 		print('명령을 실행할 수 없습니다.')
 
 def main():
-	#state1 = 0 #1번 잠금상태시 열림 동작 방지
-	#state2 = 0 #2번 잠금상태시 열림 동작 방지
+	state1 = 0 #1번 잠금상태시 열림 동작 방지
+	state2 = 0 #2번 잠금상태시 열림 동작 방지
 	while 1:
 		retry_game = True
 		button = False
@@ -416,7 +417,7 @@ def main():
 		say_exit1 = '종료'
 		say_exit2 = '잘자'
 		if recog == 200:
-			gt2vt.getText2VoiceStream("AC를 실행합니다.아","./AC_openning.wav")
+			gt2vt.getText2VoiceStream("안녕하세요? AC를 실행합니다.아","./AC_openning.wav")
 			gt2vt.play_file("./AC_openning.wav")
 			time.sleep(0.8)
 			while 1:
