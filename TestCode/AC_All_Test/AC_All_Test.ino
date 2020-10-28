@@ -5,9 +5,9 @@
 
 //1번
 AF_DCMotor motor1_1(1); //모터쉴드 M1 연결
-AF_DCMotor motor1_2(2); //모터쉴드 M2 연결
+AF_DCMotor motor1_2(3); //모터쉴드 M3 연결
 //2번
-AF_DCMotor motor2_1(3); //모터쉴드 M3 연결
+AF_DCMotor motor2_1(2); //모터쉴드 M2 연결
 AF_DCMotor motor2_2(4); //모터쉴드 M4 연결
 
 Servo lock_device1; //1번 잠금 서보
@@ -182,7 +182,7 @@ void loop(){
    if(in_data=='5'){ //1번 잠금
       before1=after1;
       after1=100;
-      if(before1==after1){
+      if(before1==after1){ //예외처리 추가해야함.
         Serial.print("Number 1 can't do");
         Serial.print("\t");
       }
@@ -196,7 +196,7 @@ void loop(){
    else if(in_data=='6'){ //1번 잠금 해제
       before1=after1;
       after1=001;
-      if(before1==after1){
+      if(before1==after1){//예외처리 추가해야함.
         Serial.print("Number 1 can't do");
         Serial.print("\t");
       }
@@ -240,7 +240,7 @@ void loop(){
     if(in_data=='7'){ //2번 잠금
       before2=after2;
       after2=100;
-      if(before2==after2){
+      if(before2==after2){//예외처리 추가해야함.
         Serial.print("Number 2 can't do");
         Serial.print("\t");
       }
@@ -254,7 +254,7 @@ void loop(){
     else if(in_data=='8'){ //2번 잠금 해제    
       before2=after2;
       after2=001;
-      if(before2==after2){
+      if(before2==after2){//예외처리 추가해야함.
         Serial.print("Number 2 can't do");
         Serial.print("\t");
       }

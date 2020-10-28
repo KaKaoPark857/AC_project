@@ -1,19 +1,17 @@
 #include <Servo.h> //서보모터 라이브러리
 #include <AFMotor.h> //L293D 모터드라이브 라이브러리 (따로 추가함)
 
-//모터슬라이더 테스트, 모터슬라이더 함수를 제작
-
 //1번
 AF_DCMotor motor1_1(1); //모터쉴드 M1 연결
-AF_DCMotor motor1_2(2); //모터쉴드 M2 연결
+AF_DCMotor motor1_2(3); //모터쉴드 M3 연결
 //2번
-AF_DCMotor motor2_1(3); //모터쉴드 M3 연결
+AF_DCMotor motor2_1(2); //모터쉴드 M2 연결
 AF_DCMotor motor2_2(4); //모터쉴드 M4 연결
 
 Servo lock_device1; //1번 잠금 서보
-int value1 = 0; //1번 초기 각도
+int value1 = 90; //1번 초기 각도
 Servo lock_device2; //2번 잠금 서보
-int value2 = 0; //2번 초기 각도
+int value2 = 90; //2번 초기 각도
 
 void num1_open(){ //1번 서랍 열림
   motor1_1.run(FORWARD);
@@ -57,7 +55,7 @@ void setup(){
   motor2_2.setSpeed(250);
 
   //서보모터 핀모드 OUTPUT으로 설정
-  lock_device1.attach(8);  // 1번 서보모터
+  lock_device1.attach(10);  // 1번 서보모터
   lock_device2.attach(9);  // 2번 서보모터
 
   //LED 제어 핀모드 OUTPUT으로 설정

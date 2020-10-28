@@ -6,6 +6,7 @@
 //1번
 AF_DCMotor motor1_1(1); //모터쉴드 M1 연결
 AF_DCMotor motor1_2(2); //모터쉴드 M2 연결
+
 //2번
 AF_DCMotor motor2_1(3); //모터쉴드 M3 연결
 AF_DCMotor motor2_2(4); //모터쉴드 M4 연결
@@ -42,13 +43,14 @@ void num2_close(){ //2번 서랍 닫힘
   motor2_2.run(RELEASE);
 }
 
+
 void setup(){
   Serial.begin(9600); //시리얼 통신 설정
   //모터슬라이더 속도 설정
   motor1_1.setSpeed(250); //모터 속도 설정
   motor1_2.setSpeed(250);
-  motor2_1.setSpeed(250);
-  motor2_2.setSpeed(250);
+  //motor2_1.setSpeed(250);
+  //motor2_2.setSpeed(250);
 }
 
 //LED 효과에 따른 중복 행동 방지 변수
