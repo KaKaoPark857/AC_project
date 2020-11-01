@@ -276,7 +276,10 @@ def control_action(text): ##명령어 입력
 	lock2_door10 = '이번 서랍 잠궈'
 
 	#cmd_init()
-#####명령 조건문	
+#####명령 조건문
+	state1 = 0 #1번 잠금상태시 열림 동작 방지
+	state2 = 0 #2번 잠금상태시 열림 동작 방지
+
 	if (open1_door1 in text or open1_door2 in text or open1_door3 in text or open1_door4 in text or open1_door5 in text or open1_door6 in text):
 		if(state1 == 3):
 			print('1번 서랍 잠금을 해제합니다.') #터미널 창에 출력
@@ -376,7 +379,7 @@ def control_action(text): ##명령어 입력
 			time.sleep(1)
 
 	elif (lock2_door1 in text or lock2_door2 in text or lock2_door3 in text or lock2_door4 in text or lock2_door5 in text or lock2_door6 in text or lock2_door7 in text or lock2_door8 in text or lock2_door9 in text or lock2_door10 in text):
-		if(state2 == 2 or state == 0):
+		if(state2 == 2 or state2 == 0):
 			state2 = 3
 			print('2번 서랍을 잠그겠습니다.')
 			gt2vt.getText2VoiceStream("2번 서랍을 잠그겠습니다.아","./number2_lock.wav")
@@ -398,8 +401,6 @@ def control_action(text): ##명령어 입력
 		print('명령을 실행할 수 없습니다.')
 
 def main():
-	state1 = 0 #1번 잠금상태시 열림 동작 방지
-	state2 = 0 #2번 잠금상태시 열림 동작 방지
 	while 1:
 		retry_game = True
 		button = False
