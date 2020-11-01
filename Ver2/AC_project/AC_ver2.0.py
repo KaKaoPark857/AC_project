@@ -287,7 +287,7 @@ def control_action(text): ##명령어 입력
 			time.sleep(2)
 			open1_AC()
 			time.sleep(1)
-		elif(state1 == 2):
+		elif(state1 == 2 or state1 == 0):
 			state1 = 1
 			print('1번 서랍을 열겠습니다.') #터미널 창에 출력
 			gt2vt.getText2VoiceStream("1번 서랍을 열겠습니다.아","./number1_open.wav") #명령어 실행시 AC 음성 입력
@@ -302,7 +302,7 @@ def control_action(text): ##명령어 입력
 			time.sleep(1)
 
 	elif (close1_door1 in text or close1_door2 in text or close1_door3 in text or close1_door4 in text or close1_door5 in text or close1_door6 in text):
-		if(state1 == 1):
+		if(state1 == 1 or state1 == 0):
 			state1 = 2
 			print('1번 서랍을 닫겠습니다.')
 			gt2vt.getText2VoiceStream("1번 서랍을 닫겠습니다.아","./number1_close.wav")
@@ -314,15 +314,10 @@ def control_action(text): ##명령어 입력
 			print('1번 서랍은 이미 닫혀있습니다.') #터미널 창에 출력
 			gt2vt.getText2VoiceStream("1번 서랍은 이미 닫혀있습니다.아","./number1_cannot_close1.wav")
 			gt2vt.play_file("./number1_cannot_close1.wav")
-			time.sleep(1)
-		else:
-			print('1번 서랍을 닫은 후 시도해주세요.') #터미널 창에 출력
-			gt2vt.getText2VoiceStream("1번 서랍을 닫은 후 시도해주세요.아","./number1_cannot_close2.wav")
-			gt2vt.play_file("./number1_cannot_close2.wav")
 			time.sleep(1)			
 
 	elif (lock1_door1 in text or lock1_door2 in text or lock1_door3 in text or lock1_door4 in text or lock1_door5 in text or lock1_door6 in text or lock1_door7 in text or lock1_door8 in text or lock1_door9 in text or lock1_door10 in text):
-		if(state1 == 2):
+		if(state1 == 2 or state1 == 0):
 			state1 = 3
 			print('1번 서랍을 잠그겠습니다.')
 			gt2vt.getText2VoiceStream("1번 서랍을 잠그겠습니다.아","./number1_lock.wav")
@@ -351,7 +346,7 @@ def control_action(text): ##명령어 입력
 			time.sleep(2)
 			open2_AC()
 			time.sleep(1)
-		elif(state2 == 2):
+		elif(state2 == 2 or state2 == 0):
 			state2 = 1
 			print('2번 서랍을 열겠습니다.')
 			gt2vt.getText2VoiceStream("2번 서랍을 열겠습니다.아","./number2_open.wav")
@@ -366,7 +361,7 @@ def control_action(text): ##명령어 입력
 			time.sleep(1)
 
 	elif (close2_door1 in text or close2_door2 in text or close2_door3 in text or close2_door4 in text or close2_door5 in text or close2_door6 in text):
-		if(state2 == 1):
+		if(state2 == 1 or state2 == 0):
 			state1 = 2
 			print('2번 서랍을 닫겠습니다.')
 			gt2vt.getText2VoiceStream("2번 서랍을 닫겠습니다.아","./number2_close.wav")
@@ -379,14 +374,9 @@ def control_action(text): ##명령어 입력
 			gt2vt.getText2VoiceStream("2번 서랍은 이미 닫혀있습니다.아","./number2_cannot_close1.wav")
 			gt2vt.play_file("./number2_cannot_close1.wav")
 			time.sleep(1)
-		else:
-			print('2번 서랍을 닫은 후 시도해주세요.') #터미널 창에 출력
-			gt2vt.getText2VoiceStream("2번 서랍을 닫은 후 시도해주세요.아","./number2_cannot_close2.wav")
-			gt2vt.play_file("./number2_cannot_close2.wav")
-			time.sleep(1)	
 
 	elif (lock2_door1 in text or lock2_door2 in text or lock2_door3 in text or lock2_door4 in text or lock2_door5 in text or lock2_door6 in text or lock2_door7 in text or lock2_door8 in text or lock2_door9 in text or lock2_door10 in text):
-		if(state2 == 2):
+		if(state2 == 2 or state == 0):
 			state2 = 3
 			print('2번 서랍을 잠그겠습니다.')
 			gt2vt.getText2VoiceStream("2번 서랍을 잠그겠습니다.아","./number2_lock.wav")
