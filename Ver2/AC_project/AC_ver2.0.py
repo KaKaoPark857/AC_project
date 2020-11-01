@@ -21,6 +21,8 @@ button = False
 
 import serial
 
+state1 = 0 #1번 잠금상태시 열림 동작 방지
+state2 = 0 #2번 잠금상태시 열림 동작 방지
 ###############################################아두이노 동작 명령 전달
 
 port = "/dev/ttyACM0" #UART 통신
@@ -277,9 +279,9 @@ def control_action(text): ##명령어 입력
 
 	#cmd_init()
 #####명령 조건문
-	state1 = 0 #1번 잠금상태시 열림 동작 방지
-	state2 = 0 #2번 잠금상태시 열림 동작 방지
-
+	global state1
+	global state2
+	
 	if (open1_door1 in text or open1_door2 in text or open1_door3 in text or open1_door4 in text or open1_door5 in text or open1_door6 in text):
 		if(state1 == 3):
 			print('1번 서랍 잠금을 해제합니다.') #터미널 창에 출력
@@ -287,7 +289,12 @@ def control_action(text): ##명령어 입력
 			gt2vt.play_file("./number1_unlock.wav")
 			time.sleep(0.5)
 			unlock1_AC()
-			time.sleep(2)
+			time.sleep(1)
+			state1 = 1
+			print('1번 서랍을 열겠습니다.') #터미널 창에 출력
+			gt2vt.getText2VoiceStream("1번 서랍을 열겠습니다.아","./number1_open.wav") #명령어 실행시 AC 음성 입력
+			gt2vt.play_file("./number1_open.wav") #AC 음성 출력
+			time.sleep(0.5)
 			open1_AC()
 			time.sleep(1)
 		elif(state1 == 2 or state1 == 0):
@@ -346,7 +353,12 @@ def control_action(text): ##명령어 입력
 			gt2vt.play_file("./number2_unlock.wav")
 			time.sleep(0.5)
 			unlock2_AC()
-			time.sleep(2)
+			time.sleep(1)
+			state2 = 1
+			print('2번 서랍을 열겠습니다.')
+			gt2vt.getText2VoiceStream("2번 서랍을 열겠습니다.아","./number2_open.wav")
+			gt2vt.play_file("./number2_open.wav")
+			time.sleep(0.5)
 			open2_AC()
 			time.sleep(1)
 		elif(state2 == 2 or state2 == 0):
@@ -365,7 +377,7 @@ def control_action(text): ##명령어 입력
 
 	elif (close2_door1 in text or close2_door2 in text or close2_door3 in text or close2_door4 in text or close2_door5 in text or close2_door6 in text):
 		if(state2 == 1 or state2 == 0):
-			state1 = 2
+			state2 = 2
 			print('2번 서랍을 닫겠습니다.')
 			gt2vt.getText2VoiceStream("2번 서랍을 닫겠습니다.아","./number2_close.wav")
 			gt2vt.play_file("./number2_close.wav")
