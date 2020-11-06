@@ -13,12 +13,12 @@ void setup()
 
 void loop() {
   //It is waiting while software serial buffer is available
-  while (mySerial.available()) { 
+  if(mySerial.available()) { 
     Serial.write(mySerial.read());
   }
 
   //It is waiting while original serial buffer is available
-  while (Serial.available()) {
+  if(Serial.available()) {
     mySerial.write(Serial.read());
   }
 

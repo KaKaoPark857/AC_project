@@ -1,0 +1,7 @@
+코딩팩을 이용하려면 /ai-makers-kit/python3 에서 /ai-makers-kit/example 로
+‘gigagenieRPC_pb2_grpc.py’, ‘gigagenieRPC.py’, ‘MicrophoneStream.py’, ‘user_auth.py’ 복붙
+
+
+requests 모듈 설치
+$pip3 install requests
+
