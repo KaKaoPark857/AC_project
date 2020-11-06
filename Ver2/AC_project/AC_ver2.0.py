@@ -17,6 +17,8 @@ import hmac
 import hashlib
 from threading import Timer
 
+from ctypes import *
+
 button = False
 
 import serial
