@@ -17,7 +17,7 @@ import hmac
 import hashlib
 from threading import Timer
 
-from ctypes import *
+from ctypes import * #ALSA 모듈 에러 메시지 삭제 코드를 위한 헤더
 
 button = False
 
@@ -36,50 +36,46 @@ state1 = 0 #1번 잠금상태시 열림 동작 방지
 state2 = 0 #2번 잠금상태시 열림 동작 방지
 ###############################################아두이노 동작 명령 전달
 
-port = "/dev/ttyACM0" #UART 통신
-arduino = serial.Serial(port, 9600)
-#블루투스 모듈 연결 코드 작성요망
+#port = "/dev/ttyACM0" #UART 통신
+#arduino = serial.Serial(port, 9600) #유선 연결시 코드
+
+#블루투스 모듈 연결 코드
+from bluetooth import *
+ardu_blue = BluetoothSocket(RFCOMM)
+ardu_blue.connect(("58:DA:04:A4:6F:9D", 1))
+
 
 def close1_AC(): #1번 닫힘
 	m = '1'
-	m = [m.encode('utf-8')]
-	arduino.writelines(m)
+	ardu_blue.send(m)
 
 def open1_AC(): #1번 열림
 	m = '2'
-	m = [m.encode('utf-8')]
-	arduino.writelines(m)
+	ardu_blue.send(m)
 
 def close2_AC(): #2번 닫힘
 	m = '3'
-	m = [m.encode('utf-8')]
-	arduino.writelines(m)
+	ardu_blue.send(m)
 
 def open2_AC(): #2번 열림
 	m = '4'
-	m = [m.encode('utf-8')]
-	arduino.writelines(m)
-
+	ardu_blue.send(m)
 
 def lock1_AC(): #1번 잠금
 	m = '5'
-	m = [m.encode('utf-8')]
-	arduino.writelines(m)
+	ardu_blue.send(m)
 
 def unlock1_AC(): #1번 잠금해제
 	m = '6'
-	m = [m.encode('utf-8')]
-	arduino.writelines(m)
+	ardu_blue.send(m)
 
 def lock2_AC(): #2번 잠금
 	m = '7'
-	m = [m.encode('utf-8')]
-	arduino.writelines(m)
+	ardu_blue.send(m)
 
 def unlock2_AC(): #2번 잠금해제
 	m = '8'
-	m = [m.encode('utf-8')]
-	arduino.writelines(m)
+	ardu_blue.send(m)
 
 ################################################
 
@@ -237,56 +233,56 @@ def kws_test():
 def control_action(text): ##명령어 입력
 
 ######1번 열림
-	open1_door1 = '1번 열어'
-	open1_door2 = '1번 열어줘'
-	open1_door3 = '1번 서랍 열어'
-	open1_door4 = '1번 서랍 열어줘'
-	open1_door5 = '일번 열어'
-	open1_door6 = '일번 열어줘'
+	open1_door1 = '1번 열어'.decode('utf-8')
+	open1_door2 = '1번 열어줘'.decode('utf-8')
+	open1_door3 = '1번 서랍 열어'.decode('utf-8')
+	open1_door4 = '1번 서랍 열어줘'.decode('utf-8')
+	open1_door5 = '일번 열어'.decode('utf-8')
+	open1_door6 = '일번 열어줘'.decode('utf-8')
 ######1번 닫힘
-	close1_door1 = '1번 닫아'
-	close1_door2 = '1번 닫아줘'
-	close1_door3 = '1번 서랍 닫아'
-	close1_door4 = '1번 서랍 닫아줘'
-	close1_door5 = '일번 닫아'
-	close1_door6 = '일번 닫아줘'
+	close1_door1 = '1번 닫아'.decode('utf-8')
+	close1_door2 = '1번 닫아줘'.decode('utf-8')
+	close1_door3 = '1번 서랍 닫아'.decode('utf-8')
+	close1_door4 = '1번 서랍 닫아줘'.decode('utf-8')
+	close1_door5 = '일번 닫아'.decode('utf-8')
+	close1_door6 = '일번 닫아줘'.decode('utf-8')
 ######1번 잠금
-	lock1_door1 = '1번 잠가'
-	lock1_door2 = '1번 잠가줘'
-	lock1_door3 = '1번 서랍 잠가'
-	lock1_door4 = '1번 서랍 잠가줘'
-	lock1_door5 = '일번 서랍 잠가'
-	lock1_door6 = '일번 서랍 잠가줘'
-	lock1_door7 = '1번 잠궈'
-	lock1_door8 = '1번 서랍 잠궈'
-	lock1_door9 = '일번 잠궈'
-	lock1_door10 = '일번 서랍 잠궈'
+	lock1_door1 = '1번 잠가'.decode('utf-8')
+	lock1_door2 = '1번 잠가줘'.decode('utf-8')
+	lock1_door3 = '1번 서랍 잠가'.decode('utf-8')
+	lock1_door4 = '1번 서랍 잠가줘'.decode('utf-8')
+	lock1_door5 = '일번 서랍 잠가'.decode('utf-8')
+	lock1_door6 = '일번 서랍 잠가줘'.decode('utf-8')
+	lock1_door7 = '1번 잠궈'.decode('utf-8')
+	lock1_door8 = '1번 서랍 잠궈'.decode('utf-8')
+	lock1_door9 = '일번 잠궈'.decode('utf-8')
+	lock1_door10 = '일번 서랍 잠궈'.decode('utf-8')
 
 ######2번 열림
-	open2_door1 = '2번 열어'
-	open2_door2 = '2번 열어줘'
-	open2_door3 = '2번 서랍 열어'
-	open2_door4 = '2번 서랍 열어줘'
-	open2_door5 = '이번 열어'
-	open2_door6 = '이번 열어줘'
+	open2_door1 = '2번 열어'.decode('utf-8')
+	open2_door2 = '2번 열어줘'.decode('utf-8')
+	open2_door3 = '2번 서랍 열어'.decode('utf-8')
+	open2_door4 = '2번 서랍 열어줘'.decode('utf-8')
+	open2_door5 = '이번 열어'.decode('utf-8')
+	open2_door6 = '이번 열어줘'.decode('utf-8')
 ######2번 닫힘
-	close2_door1 = '2번 닫아'
-	close2_door2 = '2번 닫아줘'
-	close2_door3 = '2번 서랍 닫아'
-	close2_door4 = '2번 서랍 닫아줘'
-	close2_door5 = '이번 닫아'
-	close2_door6 = '이번 닫아줘'
+	close2_door1 = '2번 닫아'.decode('utf-8')
+	close2_door2 = '2번 닫아줘'.decode('utf-8')
+	close2_door3 = '2번 서랍 닫아'.decode('utf-8')
+	close2_door4 = '2번 서랍 닫아줘'.decode('utf-8')
+	close2_door5 = '이번 닫아'.decode('utf-8')
+	close2_door6 = '이번 닫아줘'.decode('utf-8')
 ######2번 잠금
-	lock2_door1 = '2번 잠가'
-	lock2_door2 = '2번 잠가줘'
-	lock2_door3 = '2번 서랍 잠가'
-	lock2_door4 = '2번 서랍 잠가줘'
-	lock2_door5 = '이번 서랍 잠가'
-	lock2_door6 = '이번 서랍 잠가줘'
-	lock2_door7 = '2번 잠궈'
-	lock2_door8 = '2번 서랍 잠궈'
-	lock2_door9 = '이번 잠궈'
-	lock2_door10 = '이번 서랍 잠궈'
+	lock2_door1 = '2번 잠가'.decode('utf-8')
+	lock2_door2 = '2번 잠가줘'.decode('utf-8')
+	lock2_door3 = '2번 서랍 잠가'.decode('utf-8')
+	lock2_door4 = '2번 서랍 잠가줘'.decode('utf-8')
+	lock2_door5 = '이번 서랍 잠가'.decode('utf-8')
+	lock2_door6 = '이번 서랍 잠가줘'.decode('utf-8')
+	lock2_door7 = '2번 잠궈'.decode('utf-8')
+	lock2_door8 = '2번 서랍 잠궈'.decode('utf-8')
+	lock2_door9 = '이번 잠궈'.decode('utf-8')
+	lock2_door10 = '이번 서랍 잠궈'.decode('utf-8')
 
 	#cmd_init()
 #####명령 조건문
@@ -295,14 +291,14 @@ def control_action(text): ##명령어 입력
 	
 	if (open1_door1 in text or open1_door2 in text or open1_door3 in text or open1_door4 in text or open1_door5 in text or open1_door6 in text):
 		if(state1 == 3):
-			print('1번 서랍 잠금을 해제합니다.') #터미널 창에 출력
+			#print('1번 서랍 잠금을 해제합니다.') #터미널 창에 출력
 			gt2vt.getText2VoiceStream("1번 서랍 잠금을 해제합니다.아","./number1_unlock.wav")
 			gt2vt.play_file("./number1_unlock.wav")
 			time.sleep(0.5)
 			unlock1_AC()
 			time.sleep(1)
 			state1 = 1
-			print('1번 서랍을 열겠습니다.') #터미널 창에 출력
+			#print('1번 서랍을 열겠습니다.') #터미널 창에 출력
 			gt2vt.getText2VoiceStream("1번 서랍을 열겠습니다.아","./number1_open.wav") #명령어 실행시 AC 음성 입력
 			gt2vt.play_file("./number1_open.wav") #AC 음성 출력
 			time.sleep(0.5)
@@ -310,14 +306,14 @@ def control_action(text): ##명령어 입력
 			time.sleep(1)
 		elif(state1 == 2 or state1 == 0):
 			state1 = 1
-			print('1번 서랍을 열겠습니다.') #터미널 창에 출력
+			#print('1번 서랍을 열겠습니다.') #터미널 창에 출력
 			gt2vt.getText2VoiceStream("1번 서랍을 열겠습니다.아","./number1_open.wav") #명령어 실행시 AC 음성 입력
 			gt2vt.play_file("./number1_open.wav") #AC 음성 출력
 			time.sleep(0.5)
 			open1_AC() #작동
 			time.sleep(1)
 		else:
-			print('1번 서랍은 이미 열려있습니다.') #터미널 창에 출력
+			#print('1번 서랍은 이미 열려있습니다.') #터미널 창에 출력
 			gt2vt.getText2VoiceStream("1번 서랍은 이미 열려있습니다.아","./number1_cannot_open.wav")
 			gt2vt.play_file("./number1_cannot_open.wav")
 			time.sleep(1)
@@ -325,14 +321,14 @@ def control_action(text): ##명령어 입력
 	elif (close1_door1 in text or close1_door2 in text or close1_door3 in text or close1_door4 in text or close1_door5 in text or close1_door6 in text):
 		if(state1 == 1 or state1 == 0):
 			state1 = 2
-			print('1번 서랍을 닫겠습니다.')
+			#print('1번 서랍을 닫겠습니다.')
 			gt2vt.getText2VoiceStream("1번 서랍을 닫겠습니다.아","./number1_close.wav")
 			gt2vt.play_file("./number1_close.wav")
 			time.sleep(0.5)
 			close1_AC()
 			time.sleep(1)
 		elif(state1 == 2):
-			print('1번 서랍은 이미 닫혀있습니다.') #터미널 창에 출력
+			#print('1번 서랍은 이미 닫혀있습니다.') #터미널 창에 출력
 			gt2vt.getText2VoiceStream("1번 서랍은 이미 닫혀있습니다.아","./number1_cannot_close1.wav")
 			gt2vt.play_file("./number1_cannot_close1.wav")
 			time.sleep(1)			
@@ -340,33 +336,33 @@ def control_action(text): ##명령어 입력
 	elif (lock1_door1 in text or lock1_door2 in text or lock1_door3 in text or lock1_door4 in text or lock1_door5 in text or lock1_door6 in text or lock1_door7 in text or lock1_door8 in text or lock1_door9 in text or lock1_door10 in text):
 		if(state1 == 2 or state1 == 0):
 			state1 = 3
-			print('1번 서랍을 잠그겠습니다.')
+			#print('1번 서랍을 잠그겠습니다.')
 			gt2vt.getText2VoiceStream("1번 서랍을 잠그겠습니다.아","./number1_lock.wav")
 			gt2vt.play_file("./number1_lock.wav")
 			time.sleep(0.5)
 			lock1_AC()
 			time.sleep(1)
 		elif(state1 == 3):
-			print('1번 서랍은 이미 잠금 상태입니다.') #터미널 창에 출력
+			#print('1번 서랍은 이미 잠금 상태입니다.') #터미널 창에 출력
 			gt2vt.getText2VoiceStream("1번 서랍은 이미 잠금 상태입니다.아","./number1_cannot_lock.wav")
 			gt2vt.play_file("./number1_cannot_lock.wav")
 			time.sleep(1)
 		else:
-			print('1번 서랍을 닫은 후 시도해주세요.') #터미널 창에 출력
+			#print('1번 서랍을 닫은 후 시도해주세요.') #터미널 창에 출력
 			gt2vt.getText2VoiceStream("1번 서랍을 닫은 후 시도해주세요.아","./number1_cannot_close2.wav")
 			gt2vt.play_file("./number1_cannot_close2.wav")
 			time.sleep(1)			
 
 	elif (open2_door1 in text or open2_door2 in text or open2_door3 in text or open2_door4 in text or open2_door5 in text or open2_door6 in text):
 		if(state2 == 3):
-			print('2번 서랍 잠금을 해제합니다.') #터미널 창에 출력
+			#print('2번 서랍 잠금을 해제합니다.') #터미널 창에 출력
 			gt2vt.getText2VoiceStream("2번 서랍 잠금을 해제합니다.아","./number2_unlock.wav")
 			gt2vt.play_file("./number2_unlock.wav")
 			time.sleep(0.5)
 			unlock2_AC()
 			time.sleep(1)
 			state2 = 1
-			print('2번 서랍을 열겠습니다.')
+			#print('2번 서랍을 열겠습니다.')
 			gt2vt.getText2VoiceStream("2번 서랍을 열겠습니다.아","./number2_open.wav")
 			gt2vt.play_file("./number2_open.wav")
 			time.sleep(0.5)
@@ -374,14 +370,14 @@ def control_action(text): ##명령어 입력
 			time.sleep(1)
 		elif(state2 == 2 or state2 == 0):
 			state2 = 1
-			print('2번 서랍을 열겠습니다.')
+			#print('2번 서랍을 열겠습니다.')
 			gt2vt.getText2VoiceStream("2번 서랍을 열겠습니다.아","./number2_open.wav")
 			gt2vt.play_file("./number2_open.wav")
 			time.sleep(0.5)
 			open2_AC()
 			time.sleep(1)
 		else:
-			print('2번 서랍은 이미 열려있습니다.') #터미널 창에 출력
+			#print('2번 서랍은 이미 열려있습니다.') #터미널 창에 출력
 			gt2vt.getText2VoiceStream("2번 서랍은 이미 열려있습니다.아","./number2_cannot_open.wav")
 			gt2vt.play_file("./number2_cannot_open.wav")
 			time.sleep(1)
@@ -389,14 +385,14 @@ def control_action(text): ##명령어 입력
 	elif (close2_door1 in text or close2_door2 in text or close2_door3 in text or close2_door4 in text or close2_door5 in text or close2_door6 in text):
 		if(state2 == 1 or state2 == 0):
 			state2 = 2
-			print('2번 서랍을 닫겠습니다.')
+			#print('2번 서랍을 닫겠습니다.')
 			gt2vt.getText2VoiceStream("2번 서랍을 닫겠습니다.아","./number2_close.wav")
 			gt2vt.play_file("./number2_close.wav")
 			time.sleep(0.5)
 			close2_AC()
 			time.sleep(1)
 		elif(state2 == 2):
-			print('2번 서랍은 이미 닫혀있습니다.') #터미널 창에 출력
+			#print('2번 서랍은 이미 닫혀있습니다.') #터미널 창에 출력
 			gt2vt.getText2VoiceStream("2번 서랍은 이미 닫혀있습니다.아","./number2_cannot_close1.wav")
 			gt2vt.play_file("./number2_cannot_close1.wav")
 			time.sleep(1)
@@ -404,32 +400,32 @@ def control_action(text): ##명령어 입력
 	elif (lock2_door1 in text or lock2_door2 in text or lock2_door3 in text or lock2_door4 in text or lock2_door5 in text or lock2_door6 in text or lock2_door7 in text or lock2_door8 in text or lock2_door9 in text or lock2_door10 in text):
 		if(state2 == 2 or state2 == 0):
 			state2 = 3
-			print('2번 서랍을 잠그겠습니다.')
+			#print('2번 서랍을 잠그겠습니다.')
 			gt2vt.getText2VoiceStream("2번 서랍을 잠그겠습니다.아","./number2_lock.wav")
 			gt2vt.play_file("./number2_lock.wav")
 			time.sleep(0.5)
 			lock2_AC()
 			time.sleep(1)
 		elif(state2 == 3):
-			print('2번 서랍은 이미 잠금 상태입니다.') #터미널 창에 출력
+			#print('2번 서랍은 이미 잠금 상태입니다.') #터미널 창에 출력
 			gt2vt.getText2VoiceStream("2번 서랍은 이미 잠금 상태입니다..아","./number2_cannot_lock.wav")
 			gt2vt.play_file("./number2_cannot_lock.wav")
 			time.sleep(1)
 		else:
-			print('2번 서랍을 닫은 후 시도해주세요.') #터미널 창에 출력
+			#print('2번 서랍을 닫은 후 시도해주세요.') #터미널 창에 출력
 			gt2vt.getText2VoiceStream("2번 서랍을 닫은 후 시도해주세요.아","./number2_cannot_close2.wav")
 			gt2vt.play_file("./number2_cannot_close2.wav")
 
 	else:
-		print('명령을 실행할 수 없습니다.')
+		print('Can not Work!')
 
 def main():
 	while 1:
 		retry_game = True
 		button = False
 		recog=kws_test()
-		say_exit1 = '종료'
-		say_exit2 = '잘자'
+		say_exit1 = '종료'.decode('utf-8')
+		say_exit2 = '잘자'.decode('utf-8')
 		if recog == 200:
 			gt2vt.getText2VoiceStream("안녕하세요? AC를 실행합니다.아","./AC_openning.wav")
 			gt2vt.play_file("./AC_openning.wav")
@@ -443,7 +439,7 @@ def main():
 						gt2vt.play_file("./AC_closing.wav")
 						break
 		else:
-			print('지니를 불러주세요~')
+			print('Please Call Genie~')
 
 if __name__ == '__main__':
 	main()

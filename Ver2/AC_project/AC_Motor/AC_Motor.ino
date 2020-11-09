@@ -1,5 +1,8 @@
 #include <Servo.h> //서보모터 라이브러리
 #include <AFMotor.h> //L293D 모터드라이브 라이브러리 (따로 추가함)
+#include <SoftwareSerial.h> //블루투스 시리얼
+
+SoftwareSerial mySerial(2, 3); // RX, TX 교차 연결
 
 //1번
 AF_DCMotor motor1_1(1); //모터쉴드 M1 연결
@@ -46,8 +49,8 @@ void num2_close(){ //2번 서랍 닫힘
 }
 
 void setup(){
-  Serial.begin(9600); //시리얼 통신 설정
-
+  Serial.begin(9600); //시리얼 통신 설정 -> 처음 아두이노에 스케치파일 업로드용
+  mySerial.begin(9600); // 블루투스 통신 설정
   //모터슬라이더 속도 설정
   motor1_1.setSpeed(250); //모터 속도 설정
   motor1_2.setSpeed(250);
@@ -143,9 +146,9 @@ int before2 = 000;
 int after2 = 000;
   
 void loop(){
-  if(Serial.available()){
+  if(mySerial.available()){
     char in_data; //라즈베리파이에서 받은 값
-    in_data = Serial.read();
+    in_data = (char)mySerial.read();
       
 ////////////////////////////////////////////////////////////////////////////////// 1번 서랍 동작
 
@@ -261,6 +264,9 @@ void loop(){
         num2_unlock(); //2번 잠금 해제
       }
       Serial.print("Number 2 is UnLock\n\n");
-    } 
+    }
+  if(Serial.available()){
+    mySerial.write(Serial.read());
+  }
   }
 }
