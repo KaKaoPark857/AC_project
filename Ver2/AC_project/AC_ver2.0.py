@@ -285,6 +285,7 @@ def control_action(text): ##명령어 입력
 	lock2_door10 = '이번 서랍 잠궈'.decode('utf-8')
 
 	#cmd_init()
+	
 #####명령 조건문
 	global state1
 	global state2
