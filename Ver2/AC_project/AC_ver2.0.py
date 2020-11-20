@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+#라즈베리파이 "python AC_ver2.0.py" 로 실행
+
 """ This application is Copyright ⓒ KT Corp. All rights reserved. """
 
 """The Python implementation of GiGA Genie gRPC client"""
@@ -90,9 +92,9 @@ import getText2VoiceStream as gt2vt
 
 # Config for GiGA Genie gRPC
 
-CLIENT_ID = 'Y2xpZW50X2lkMTU5MTYxOTAxOTk0Nw=='
-CLIENT_KEY = 'Y2xpZW50X2tleTE1OTE2MTkwMTk5NDc='
-CLIENT_SECRET = 'Y2xpZW50X3NlY3JldDE1OTE2MTkwMTk5NDc='
+CLIENT_ID = '클라이언트 ID 입력'
+CLIENT_KEY = '클라이언트 키 입력'
+CLIENT_SECRET = '클라이언트 시크릿 키 입력'
 HOST = 'gate.gigagenie.ai' 
 PORT = 4080 
 

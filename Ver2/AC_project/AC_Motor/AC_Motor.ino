@@ -48,32 +48,6 @@ void num2_close(){ //2번 서랍 닫힘
   motor2_2.run(RELEASE);
 }
 
-void setup(){
-  Serial.begin(9600); //시리얼 통신 설정 -> 처음 아두이노에 스케치파일 업로드용
-  mySerial.begin(9600); // 블루투스 통신 설정
-  //모터슬라이더 속도 설정
-  motor1_1.setSpeed(250); //모터 속도 설정
-  motor1_2.setSpeed(250);
-  motor2_1.setSpeed(250);
-  motor2_2.setSpeed(250);
-
-  //서보모터 핀모드 OUTPUT으로 설정
-  lock_device1.attach(10);  // 1번 서보모터
-  lock_device2.attach(9);  // 2번 서보모터
-
-  //LED 제어 핀모드 OUTPUT으로 설정
-  //아날로그 핀 0~2 LED 1번
-  //1번 서랍 LED
-  pinMode(A0, OUTPUT); //LED 빨강
-  pinMode(A2, OUTPUT); //LED 초록
-  pinMode(A1, OUTPUT); //LED 노랑
-  //아날로그 핀 3~5 LED 2번
-  //2번 서랍 LED
-  pinMode(A3, OUTPUT); //LED 빨강
-  pinMode(A5, OUTPUT); //LED 초록
-  pinMode(A4, OUTPUT); //LED 노랑
-}
-
 //1번 잠금
 void num1_lock(){
   value1 -= 30; //오른쪽으로 30도
@@ -144,6 +118,32 @@ int before1 = 000;
 int after1 = 000;
 int before2 = 000;
 int after2 = 000;
+
+void setup(){
+  Serial.begin(9600); //시리얼 통신 설정 -> 처음 아두이노에 스케치파일 업로드용
+  mySerial.begin(9600); // 블루투스 통신 설정
+  //모터슬라이더 속도 설정
+  motor1_1.setSpeed(250); //모터 속도 설정
+  motor1_2.setSpeed(250);
+  motor2_1.setSpeed(250);
+  motor2_2.setSpeed(250);
+
+  //서보모터 핀모드 OUTPUT으로 설정
+  lock_device1.attach(10);  // 1번 서보모터
+  lock_device2.attach(9);  // 2번 서보모터
+
+  //LED 제어 핀모드 OUTPUT으로 설정
+  //아날로그 핀 0~2 LED 1번
+  //1번 서랍 LED
+  pinMode(A0, OUTPUT); //LED 빨강
+  pinMode(A2, OUTPUT); //LED 초록
+  pinMode(A1, OUTPUT); //LED 노랑
+  //아날로그 핀 3~5 LED 2번
+  //2번 서랍 LED
+  pinMode(A3, OUTPUT); //LED 빨강
+  pinMode(A5, OUTPUT); //LED 초록
+  pinMode(A4, OUTPUT); //LED 노랑
+}
   
 void loop(){
   if(mySerial.available()){
