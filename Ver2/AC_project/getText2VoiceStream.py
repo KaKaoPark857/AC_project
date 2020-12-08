@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""Example 4: TTS - getText2VoiceStream"""
-
 from __future__ import print_function
 
 import grpc
@@ -106,18 +104,6 @@ def play_file(fname):
 	
 	
 def main():
-    #getText2VoiceStream("지금부터 열 두개의 명령어로 RC CAR 제어를 시작합니다. 종료를 원하시면 종료라고 말씀해 주세요.","./testtts.wav")
-	'''
-	getText2VoiceStream("앞으로 이동합니다.","./rc_forward.wav")
-	getText2VoiceStream("뒤로 이동합니다.","./rc_backward.wav")
-	getText2VoiceStream("바퀴를 우측 방향으로 이동합니다.","./rc_wheel_right.wav")
-	getText2VoiceStream("바퀴를 좌측 방향으로 이동합니다.","./rc_wheel_left.wav")
-	getText2VoiceStream("바퀴를 정렬합니다.","./rc_wheel_center.wav")
-	getText2VoiceStream("카메라를 위로 올립니다.","./rc_cam_up.wav")
-	getText2VoiceStream("카메라를 아래로 내립니다.","./rc_cam_down.wav")
-	getText2VoiceStream("카메라를 오른쪽 방향으로 이동합니다.","./rc_cam_right.wav")
-	getText2VoiceStream("카메라를 왼쪽 방향으로 이동합니다.","./rc_cam_left.wav")
-	'''
 	getText2VoiceStream("감사합니다.","./stc_thanku.wav")
 	play_file("./stc_thanku.wav")
 	

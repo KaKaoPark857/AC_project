@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""Example 2: STT - getVoice2Text """
-
 from __future__ import print_function
 
 import grpc
